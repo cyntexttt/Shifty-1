@@ -1,0 +1,119 @@
+/* تصميم أساسي بسيط */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin: 2rem 0;
+}
+
+/* تصميم الفورم */
+#swapForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#swapForm input,
+#swapForm button {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#swapForm button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#swapForm button:disabled {
+  background-color: #a0a0a0;
+}
+
+/* تصميم قائمة الطلبات */
+#loadingMessage {
+  text-align: center;
+  color: #777;
+  padding: 2rem;
+}
+
+.request-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  background: #fafafa;
+}
+
+.request-card h3 {
+  margin-top: 0;
+  color: #0056b3;
+}
+
+.request-card p {
+  margin: 0.5rem 0;
+}
+
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap; /* عشان الموبايل */
+}
+
+.button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.whatsapp-button {
+  background-color: #25D366; /* لون الواتساب */
+}
+
+.confirm-button {
+  background-color: #dc3545; /* لون أحمر للتأكيد */
+}
+
+.confirm-button:disabled {
+  background-color: #a0a0a0;
+}

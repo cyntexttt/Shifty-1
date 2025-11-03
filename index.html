@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SHIFTY - تبديل الشيفتات</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>SHIFTY</h1>
+    <p>أسهل طريقة لتبديل شيفتك</p>
+  </header>
+
+  <main class="container">
+    
+    <section id="add-request">
+      <h2>أضف طلب تبديل</h2>
+      <form id="swapForm">
+        <input name="name" placeholder="اسمك (هيظهر للكل)" required />
+        <input name="phone" placeholder="رقم واتساب (مثال: 201012345678)" type="tel" required />
+        <input name="department" placeholder="القسم (اختياري)" />
+        <input name="current_shift" placeholder="شيفتك الحالي (مثال: السبت 9-5)" required />
+        <input name="wanted_shift" placeholder="الشيفت اللي عايزه (مثال: الأحد 9-5)" required />
+        <button type="submit" id="submitButton">نشر الطلب</button>
+      </form>
+    </section>
+
+    <hr>
+
+    <section id="requests">
+      <h2>الطلبات المفتوحة حالياً</h2>
+      <div id="loadingMessage">جاري تحميل الطلبات...</div>
+      <div id="requestsList">
+        </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
