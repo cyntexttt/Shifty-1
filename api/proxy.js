@@ -1,30 +1,22 @@
+// api/proxy.js
 export default async function handler(req, res) {
+  const API_URL = "https://script.google.com/macros/s/AKfycbwipkV06uuQpzTbikM3Lmz9XOVUvYhIbM3XmADOT1al6VQzkcJJ9EfHJ7yPyBw1mVz5UA/exec";
+
   try {
-    // 🔗 رابط Google Apps Script الخاص بالـ Sheet
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbwipkV06uuQpzTbikM3Lmz9XOVUvYhIbM3XmADOT1al6VQzkcJJ9EfHJ7yPyBw1mVz5UA/exec";
+    const targetUrl = req.method === "GET"
+      ? `${API_URL}?${new URLSearchParams(req.query).toString()}`
+      : API_URL;
 
-    // ✅ لو الطلب من نوع POST
-    if (req.method === "POST") {
-      const response = await fetch(scriptUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(req.body),
-      });
+    const response = await fetch(targetUrl, {
+      method: req.method,
+      headers: { "Content-Type": "application/json" },
+      body: req.method === "POST" ? JSON.stringify(req.body) : undefined,
+    });
 
-      // 🧠 قراءة رد Google Script
-      const text = await response.text();
-      res.status(200).send(text);
-    } 
-    // ❌ لو حد استخدم طريقة غير POST
-    else {
-      res.status(405).json({ error: "Method Not Allowed" });
-    }
-
+    const text = await response.text();
+    res.status(response.status).send(text);
   } catch (error) {
     console.error("Proxy Error:", error);
-    res.status(500).json({
-      error: "Proxy request failed",
-      details: error.message
-    });
+    res.status(500).json({ error: error.message || "Proxy failed" });
   }
 }
