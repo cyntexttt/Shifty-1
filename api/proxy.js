@@ -1,32 +1,32 @@
 export default async function handler(req, res) {
-  const targetURL = "https://script.google.com/macros/s/AKfycbwipkV06uuQpzTbikM3Lmz9XOVUvYhIbM3XmADOT1al6VQzkcJJ9EfHJ7yPyBw1mVz5UA/exec";
+  const API_URL = "https://script.google.com/macros/s/AKfycbzmkA-jeQW6YbBzzKROWZrtnJ7XzhlpMn3HpUG7vBXp18WgNLwnNJUP18XZ17gKk2SNpQ/exec";
+
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    return res.status(200).end();
+  }
 
   try {
-    const response = await fetch(targetURL, {
+    const targetRes = await fetch(API_URL, {
       method: req.method,
       headers: { "Content-Type": "application/json" },
-      body: req.method === "POST" ? JSON.stringify(req.body) : undefined
+      body: req.method === "POST" ? JSON.stringify(req.body) : undefined,
     });
 
-    const text = await response.text();
-
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-    if (req.method === "OPTIONS") {
-      return res.status(200).end();
-    }
-
+    const text = await targetRes.text();
     try {
-      const json = JSON.parse(text);
-      res.status(200).json(json);
+      const data = JSON.parse(text);
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      return res.status(200).json(data);
     } catch {
-      res.status(200).send(text);
+      console.error("Response not JSON:", text.substring(0, 200));
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      return res.status(200).json({ ok: false, error: "Invalid JSON from Google Script" });
     }
-
-  } catch (error) {
-    console.error("Proxy error:", error);
-    res.status(500).json({ ok: false, error: error.message });
+  } catch (err) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.status(500).json({ ok: false, error: err.message });
   }
 }
