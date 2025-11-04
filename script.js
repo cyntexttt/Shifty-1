@@ -1,5 +1,5 @@
 // script.js
-const API_URL = "https://script.google.com/macros/s/AKfycbwipkV06uuQpzTbikM3Lmz9XOVUvYhIbM3XmADOT1al6VQzkcJJ9EfHJ7yPyBw1mVz5UA/exec";
+const API_URL = "/api/proxy";
 
 async function postData(payload) {
   try {
